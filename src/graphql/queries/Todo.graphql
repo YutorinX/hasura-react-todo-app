@@ -1,5 +1,5 @@
 query Todo {
-  todo {
+  todos: todo {
     id
     created_at
     name
