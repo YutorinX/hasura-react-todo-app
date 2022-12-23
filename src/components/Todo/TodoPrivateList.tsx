@@ -1,11 +1,15 @@
 import React, { Fragment } from "react";
 import { useQuery } from "@apollo/client";
+
+import { TodoDocument } from "../../graphql/generated";
+
 import TodoItem, { TodoType } from "./TodoItem";
 // import TodoFilters from "./TodoFilters";
 
 const TodoPrivateList = () => {
   // const [filter, setFilter] = useState<string>("all");
 
+  const { data: { todos } = {} } = useQuery(TodoDocument);
 
   if (!todos) return null;
 
@@ -23,13 +27,7 @@ const TodoPrivateList = () => {
   //   filteredTodos = todos.filter((todo: TodoType) => todo.is_completed === true);
   // }
 
-  const todoList = filteredTodos.map((todo: Todo, index: number) => (
-    <TodoItem
-      key={'item'+index}
-      index={index}
-      todo={todo}
-    />
-  ));
+  const todoList = todos.map((todo: TodoType, index: number) => <TodoItem key={todo.id} index={index} todo={todo} />);
 
   return (
     <Fragment>
