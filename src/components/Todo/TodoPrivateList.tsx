@@ -1,43 +1,27 @@
-import React, { Fragment, useState } from "react";
-import TodoItem from "./TodoItem";
-import TodoFilters from "./TodoFilters";
-
-type Todo = {
-  id: number,
-  title: string,
-  is_completed: boolean
-};
+import React, { Fragment } from "react";
+import { useQuery } from "@apollo/client";
+import TodoItem, { TodoType } from "./TodoItem";
+// import TodoFilters from "./TodoFilters";
 
 const TodoPrivateList = () => {
+  // const [filter, setFilter] = useState<string>("all");
 
-  const [filter, setFilter] = useState<string>("all");
 
-  const todos = [
-    {
-      id: 1,
-      title: "This is private todo 1",
-      is_completed: true
-    },
-    {
-      id: 2,
-      title: "This is private todo 2",
-      is_completed: false
-    }
-  ];
+  if (!todos) return null;
 
-  const filterResults = (filter: string): void => {
-    setFilter(filter);
-  };
+  // const filterResults = (filter: string): void => {
+  //   setFilter(filter);
+  // };
 
-  const clearCompleted = () => {
-  };
+  // const clearCompleted = () => {
+  // };
 
-  let filteredTodos = todos;
-  if (filter === "active") {
-    filteredTodos = todos.filter((todo: Todo) => todo.is_completed !== true);
-  } else if (filter === "completed") {
-    filteredTodos = todos.filter((todo: Todo) => todo.is_completed === true);
-  }
+  // let filteredTodos = todos;
+  // if (filter === "active") {
+  //   filteredTodos = todos.filter((todo: TodoType) => todo.is_completed !== true);
+  // } else if (filter === "completed") {
+  //   filteredTodos = todos.filter((todo: TodoType) => todo.is_completed === true);
+  // }
 
   const todoList = filteredTodos.map((todo: Todo, index: number) => (
     <TodoItem
@@ -50,19 +34,17 @@ const TodoPrivateList = () => {
   return (
     <Fragment>
       <div className="todoListWrapper">
-        <ul>
-          { todoList }
-        </ul>
+        <ul>{todoList}</ul>
       </div>
 
-      <TodoFilters
+      {/* <TodoFilters
         todos={filteredTodos}
         currentFilter={filter}
         filterResultsFn={filterResults}
         clearCompletedFn={clearCompleted}
-      />
+      /> */}
     </Fragment>
   );
-}
+};
 
 export default TodoPrivateList;
