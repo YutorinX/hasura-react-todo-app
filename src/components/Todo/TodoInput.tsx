@@ -1,11 +1,13 @@
 import * as React from "react";
 import { useMutation } from "@apollo/client";
-import { CreateTodoDocument } from "../../graphql/generated";
+import { CreateTodoDocument, TodoDocument } from "../../graphql/generated";
 
 const TodoInput = ({ isPublic = false }) => {
   const [todoInput, setTodoInput] = React.useState("");
 
-  const [createTodo] = useMutation(CreateTodoDocument);
+  const [createTodo] = useMutation(CreateTodoDocument, {
+    refetchQueries: [TodoDocument],
+  });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
